@@ -31,4 +31,5 @@ public class ErrorResponse {
    * error cause timestamp
    */
   private Instant timestamp;
+
 }

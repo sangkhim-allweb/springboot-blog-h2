@@ -29,7 +29,7 @@ public class PostService {
     if (post.isPresent()) {
       return post.get();
     } else {
-      throw new DataNotFoundException(MessageFormat.format("Book id {0} not found", String.valueOf(id)));
+      throw new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(id)));
     }
   }
 

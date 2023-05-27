@@ -1,10 +1,10 @@
 package com.allweb.springbootblogh2.base;
 
+import com.allweb.springbootblogh2.dto.ErrorResponse;
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.exception.DuplicateException;
 import com.allweb.springbootblogh2.exception.base.ServiceException;
-import com.allweb.springbootblogh2.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -26,15 +26,14 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 public class BaseControllerAdvice {
-  public static final Instant TIMESTAMP = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
 
+  public static final Instant TIMESTAMP = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
 
   @ExceptionHandler({NoHandlerFoundException.class})
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErrorResponse noHandlerFoundException(NoHandlerFoundException ex) {
     LOGGER.debug(ex.getMessage(), ex.getCause());
     return new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), "No resource found for your request. Please verify you request", TIMESTAMP);
-
   }
 
   @ExceptionHandler({DataNotFoundException.class})
