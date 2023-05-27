@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS post_tags;
+CREATE TABLE post_tags
+(
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  post_id INT,
+  tag_id  INT
+);
+
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts
 (
@@ -12,14 +20,6 @@ CREATE TABLE authors
 (
   id   INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(250) NOT NULL
-);
-
-DROP TABLE IF EXISTS post_tags;
-CREATE TABLE post_tags
-(
-  id      INT AUTO_INCREMENT PRIMARY KEY,
-  post_id INT,
-  tag_id  INT
 );
 
 DROP TABLE IF EXISTS tags;
