@@ -4,6 +4,7 @@ import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.model.Post;
 import com.allweb.springbootblogh2.repository.PostRepository;
+import com.allweb.springbootblogh2.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,9 @@ public class PostService {
   @Autowired
   PostRepository repository;
 
+  @Autowired
+  TagRepository tagRepository;
+
   public List<Post> getAllPosts() {
     List<Post> postList = repository.findAll();
     return postList;
@@ -33,21 +37,21 @@ public class PostService {
     }
   }
 
-  public Post createOrUpdate(Post entity) {
-    Optional<Post> post = repository.findById(entity.getId());
+  public Post createOrUpdate(Post postRequest) {
+    Optional<Post> existingPost = repository.findById(postRequest.getId());
 
-    if (post.isPresent()) {
-      Post newEntity = post.get();
+    if (existingPost.isPresent()) {
+      Post postUpdate = existingPost.get();
 
-      newEntity.setTitle(entity.getTitle());
-      newEntity.setBody(entity.getBody());
-      newEntity.setAuthorId(1);
+      postUpdate.setTitle(postRequest.getTitle());
+      postUpdate.setBody(postRequest.getBody());
 
-      newEntity = repository.save(newEntity);
-      return newEntity;
+      // save foreign key
+      postUpdate.setAuthor(postRequest.getAuthor());
+
+      return repository.save(postUpdate);
     } else {
-      entity = repository.save(entity);
-      return entity;
+      return repository.save(postRequest);
     }
   }
 

@@ -9,32 +9,25 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "tags")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Tag {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(name = "title", nullable = false)
-  private String title;
-
-  @Column(name = "body")
-  private String body;
-
-  @ManyToOne
-  @JoinColumn(name = "author_id")
-  private Author author;
+  @Column(name = "name")
+  private String name;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(
     name = "post_tags",
-    joinColumns = @JoinColumn(name = "post_id"),
-    inverseJoinColumns = @JoinColumn(name = "tag_id"))
-  @JsonIgnoreProperties("postList")
-  private List<Tag> tagList;
+    joinColumns = @JoinColumn(name = "tag_id"),
+    inverseJoinColumns = @JoinColumn(name = "post_id"))
+  @JsonIgnoreProperties("tagList")
+  private List<Tag> postList;
 
 }
