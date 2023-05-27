@@ -28,6 +28,6 @@ public class Tag {
     joinColumns = @JoinColumn(name = "tag_id"),
     inverseJoinColumns = @JoinColumn(name = "post_id"))
   @JsonIgnoreProperties("tagList")
-  private List<Tag> postList;
+  private List<Post> postList;
 
 }
