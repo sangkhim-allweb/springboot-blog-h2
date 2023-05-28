@@ -37,6 +37,12 @@ public class PostController {
     return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.OK);
   }
 
+  @GetMapping("/{id}/tags")
+  public ResponseEntity<List<Tag>> getAllTagsByPostId(@PathVariable(value = "id") Long id) {
+    List<Tag> tagList = service.getAllTagsByPostId(id);
+    return new ResponseEntity<>(tagList, new HttpHeaders(), HttpStatus.OK);
+  }
+
   @PostMapping("/{id}/tags")
   public ResponseEntity<Tag> addTag(@PathVariable("id") Long id, @RequestBody Tag tagRequest) {
     Tag updated = service.addTag(id, tagRequest);

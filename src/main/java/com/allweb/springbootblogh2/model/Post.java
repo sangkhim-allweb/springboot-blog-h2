@@ -36,7 +36,7 @@ public class Post {
     inverseJoinColumns = @JoinColumn(name = "tag_id"))
   @JsonIgnoreProperties("postList")
   private List<Tag> tagList;
-  
+
   public void addTag(Tag tag) {
     this.tagList.add(tag);
   }

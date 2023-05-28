@@ -61,6 +61,15 @@ public class PostService {
     }
   }
 
+  public List<Tag> getAllTagsByPostId(Long id) {
+    if (!postRepository.existsById(id)) {
+      throw new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(id)));
+    }
+
+    List<Tag> tagList = postRepository.findById(id).get().getTagList();
+    return tagList;
+  }
+
   public Tag addTag(Long postId, Tag tagRequest) {
     Tag existingPost = postRepository.findById(postId).map(post -> {
 
