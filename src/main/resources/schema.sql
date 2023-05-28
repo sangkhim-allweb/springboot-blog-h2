@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS post_tags;
 CREATE TABLE post_tags
 (
-  id      INT AUTO_INCREMENT PRIMARY KEY,
   post_id INT,
-  tag_id  INT
+  tag_id  INT,
+  PRIMARY KEY (post_id, tag_id)
 );
 
 DROP TABLE IF EXISTS posts;

@@ -36,5 +36,16 @@ public class Post {
     inverseJoinColumns = @JoinColumn(name = "tag_id"))
   @JsonIgnoreProperties("postList")
   private List<Tag> tagList;
+  
+  public void addTag(Tag tag) {
+    this.tagList.add(tag);
+  }
+
+  public void removeTag(long tagId) {
+    Tag tag = this.tagList.stream().filter(t -> t.getId() == tagId).findFirst().orElse(null);
+    if (tag != null) {
+      this.tagList.remove(tag);
+    }
+  }
 
 }

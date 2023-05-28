@@ -1,6 +1,7 @@
 package com.allweb.springbootblogh2.controller;
 
 import com.allweb.springbootblogh2.model.Post;
+import com.allweb.springbootblogh2.model.Tag;
 import com.allweb.springbootblogh2.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,17 @@ public class PostController {
   public ResponseEntity<Post> createOrUpdate(@RequestBody Post post) {
     Post updated = service.createOrUpdate(post);
     return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.OK);
+  }
+
+  @PostMapping("/{id}/tags")
+  public ResponseEntity<Tag> addTag(@PathVariable("id") Long id, @RequestBody Tag tagRequest) {
+    Tag updated = service.createOrUpdateTag(id, tagRequest);
+    return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.OK);
+  }
+
+  @DeleteMapping("/{id}/tags/{tagId}")
+  public void deleteTagFromPost(@PathVariable("id") Long id, @PathVariable("tagId") Long tagId) {
+    service.deleteTagFromPost(id, tagId);
   }
 
   @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.allweb.springbootblogh2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class Tag {
     joinColumns = @JoinColumn(name = "tag_id"),
     inverseJoinColumns = @JoinColumn(name = "post_id"))
   @JsonIgnoreProperties("tagList")
+  @JsonIgnore
   private List<Post> postList;
 
 }
