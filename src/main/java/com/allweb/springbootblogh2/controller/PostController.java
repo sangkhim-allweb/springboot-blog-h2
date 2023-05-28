@@ -19,8 +19,8 @@ public class PostController {
   PostService service;
 
   @GetMapping
-  public ResponseEntity<List<Post>> getAllPosts() {
-    List<Post> list = service.getAllPosts();
+  public ResponseEntity<List<Post>> getAllPosts(@RequestParam(required = false) String title) {
+    List<Post> list = service.getAllPosts(title);
     return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
   }
 
