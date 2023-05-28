@@ -19,9 +19,6 @@ public class TagService {
   @Autowired
   TagRepository repository;
 
-  @Autowired
-  TagRepository tagRepository;
-
   public List<Tag> getAllTags() {
     List<Tag> tagList = repository.findAll();
     return tagList;

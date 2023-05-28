@@ -4,7 +4,6 @@ import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.model.Post;
 import com.allweb.springbootblogh2.repository.PostRepository;
-import com.allweb.springbootblogh2.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +18,6 @@ public class PostService {
 
   @Autowired
   PostRepository repository;
-
-  @Autowired
-  TagRepository tagRepository;
 
   public List<Post> getAllPosts() {
     List<Post> postList = repository.findAll();

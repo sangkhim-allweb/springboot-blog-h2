@@ -19,8 +19,6 @@ public class AuthorService {
   @Autowired
   AuthorRepository repository;
 
-  @Autowired
-  AuthorRepository authorRepository;
 
   public List<Author> getAllAuthors() {
     List<Author> authorList = repository.findAll();
