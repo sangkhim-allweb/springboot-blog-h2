@@ -61,15 +61,15 @@ public class PostService {
     }
   }
 
-  public Tag createOrUpdateTag(Long postId, Tag tagRequest) {
-    Tag tag = postRepository.findById(postId).map(post -> {
+  public Tag addTag(Long postId, Tag tagRequest) {
+    Tag existingPost = postRepository.findById(postId).map(post -> {
 
-      Optional<Tag> _tag = tagRepository.findById(tagRequest.getId());
+      Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
       if (tagRequest.getId() != 0) {
-        if (_tag.isPresent()) {
-          post.addTag(_tag.get());
+        if (existingTag.isPresent()) {
+          post.addTag(existingTag.get());
           postRepository.save(post);
-          return _tag.get();
+          return existingTag.get();
         } else {
           throw new DataNotFoundException(MessageFormat.format("Tag id {0} not found", String.valueOf(tagRequest.getId())));
         }
@@ -81,7 +81,7 @@ public class PostService {
 
     }).orElseThrow(() -> new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(postId))));
 
-    return tag;
+    return existingPost;
   }
 
   public void deleteTagFromPost(Long postId, Long tagId) {

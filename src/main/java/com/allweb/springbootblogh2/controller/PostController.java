@@ -39,7 +39,7 @@ public class PostController {
 
   @PostMapping("/{id}/tags")
   public ResponseEntity<Tag> addTag(@PathVariable("id") Long id, @RequestBody Tag tagRequest) {
-    Tag updated = service.createOrUpdateTag(id, tagRequest);
+    Tag updated = service.addTag(id, tagRequest);
     return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.OK);
   }
 
