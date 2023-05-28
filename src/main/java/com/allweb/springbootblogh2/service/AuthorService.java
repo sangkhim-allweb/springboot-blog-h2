@@ -17,16 +17,16 @@ import java.util.Optional;
 public class AuthorService {
 
   @Autowired
-  AuthorRepository repository;
+  AuthorRepository authorRepository;
 
 
   public List<Author> getAllAuthors() {
-    List<Author> authorList = repository.findAll();
+    List<Author> authorList = authorRepository.findAll();
     return authorList;
   }
 
   public Author getById(Long id) {
-    Optional<Author> author = repository.findById(id);
+    Optional<Author> author = authorRepository.findById(id);
     if (author.isPresent()) {
       return author.get();
     } else {
@@ -35,23 +35,23 @@ public class AuthorService {
   }
 
   public Author createOrUpdate(Author authorRequest) {
-    Optional<Author> existingAuthor = repository.findById(authorRequest.getId());
+    Optional<Author> existingAuthor = authorRepository.findById(authorRequest.getId());
 
     if (existingAuthor.isPresent()) {
       Author authorUpdate = existingAuthor.get();
 
       authorUpdate.setName(authorRequest.getName());
 
-      return repository.save(authorUpdate);
+      return authorRepository.save(authorUpdate);
     } else {
-      return repository.save(authorRequest);
+      return authorRepository.save(authorRequest);
     }
   }
 
   public void deleteById(Long id) {
-    Optional<Author> author = repository.findById(id);
+    Optional<Author> author = authorRepository.findById(id);
     if (author.isPresent()) {
-      repository.deleteById(id);
+      authorRepository.deleteById(id);
     } else {
       throw new BadRequestException("Delete error, please check ID and try again");
     }

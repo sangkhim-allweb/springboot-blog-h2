@@ -17,15 +17,15 @@ import java.util.Optional;
 public class TagService {
 
   @Autowired
-  TagRepository repository;
+  TagRepository tagRepository;
 
   public List<Tag> getAllTags() {
-    List<Tag> tagList = repository.findAll();
+    List<Tag> tagList = tagRepository.findAll();
     return tagList;
   }
 
   public Tag getById(Long id) {
-    Optional<Tag> tag = repository.findById(id);
+    Optional<Tag> tag = tagRepository.findById(id);
     if (tag.isPresent()) {
       return tag.get();
     } else {
@@ -34,23 +34,23 @@ public class TagService {
   }
 
   public Tag createOrUpdate(Tag tagRequest) {
-    Optional<Tag> existingTag = repository.findById(tagRequest.getId());
+    Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
 
     if (existingTag.isPresent()) {
       Tag tagUpdate = existingTag.get();
 
       tagUpdate.setName(tagRequest.getName());
 
-      return repository.save(tagUpdate);
+      return tagRepository.save(tagUpdate);
     } else {
-      return repository.save(tagRequest);
+      return tagRepository.save(tagRequest);
     }
   }
 
   public void deleteById(Long id) {
-    Optional<Tag> tag = repository.findById(id);
+    Optional<Tag> tag = tagRepository.findById(id);
     if (tag.isPresent()) {
-      repository.deleteById(id);
+      tagRepository.deleteById(id);
     } else {
       throw new BadRequestException("Delete error, please check ID and try again");
     }

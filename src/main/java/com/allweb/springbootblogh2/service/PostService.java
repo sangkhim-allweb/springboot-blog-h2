@@ -19,7 +19,7 @@ import java.util.Optional;
 public class PostService {
 
   @Autowired
-  PostRepository repository;
+  PostRepository postRepository;
 
   @Autowired
   TagRepository tagRepository;
@@ -27,15 +27,15 @@ public class PostService {
   public List<Post> getAllPosts(String title) {
     List<Post> postList;
     if (title == null) {
-      postList = repository.findAll();
+      postList = postRepository.findAll();
     } else {
-      postList = repository.findByTitleContaining(title);
+      postList = postRepository.findByTitleContaining(title);
     }
     return postList;
   }
 
   public Post getById(Long id) {
-    Optional<Post> post = repository.findById(id);
+    Optional<Post> post = postRepository.findById(id);
     if (post.isPresent()) {
       return post.get();
     } else {
@@ -44,7 +44,7 @@ public class PostService {
   }
 
   public Post createOrUpdate(Post postRequest) {
-    Optional<Post> existingPost = repository.findById(postRequest.getId());
+    Optional<Post> existingPost = postRepository.findById(postRequest.getId());
 
     if (existingPost.isPresent()) {
       Post postUpdate = existingPost.get();
@@ -55,20 +55,20 @@ public class PostService {
       // save foreign key
       postUpdate.setAuthor(postRequest.getAuthor());
 
-      return repository.save(postUpdate);
+      return postRepository.save(postUpdate);
     } else {
-      return repository.save(postRequest);
+      return postRepository.save(postRequest);
     }
   }
 
   public Tag createOrUpdateTag(Long postId, Tag tagRequest) {
-    Tag tag = repository.findById(postId).map(post -> {
+    Tag tag = postRepository.findById(postId).map(post -> {
 
       Optional<Tag> _tag = tagRepository.findById(tagRequest.getId());
       if (tagRequest.getId() != 0) {
         if (_tag.isPresent()) {
           post.addTag(_tag.get());
-          repository.save(post);
+          postRepository.save(post);
           return _tag.get();
         } else {
           throw new DataNotFoundException(MessageFormat.format("Tag id {0} not found", String.valueOf(tagRequest.getId())));
@@ -85,19 +85,19 @@ public class PostService {
   }
 
   public void deleteTagFromPost(Long postId, Long tagId) {
-    Optional<Post> post = repository.findById(postId);
+    Optional<Post> post = postRepository.findById(postId);
     if (post.isPresent()) {
       post.get().removeTag(tagId);
-      repository.save(post.get());
+      postRepository.save(post.get());
     } else {
       throw new BadRequestException("Delete error, please check ID and try again");
     }
   }
 
   public void deleteById(Long id) {
-    Optional<Post> post = repository.findById(id);
+    Optional<Post> post = postRepository.findById(id);
     if (post.isPresent()) {
-      repository.deleteById(id);
+      postRepository.deleteById(id);
     } else {
       throw new BadRequestException("Delete error, please check ID and try again");
     }
