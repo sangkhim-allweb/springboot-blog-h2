@@ -7,16 +7,16 @@ import com.allweb.springbootblogh2.exception.base.ServiceException;
  */
 public class DuplicateException extends ServiceException {
 
-  public DuplicateException() {
-    super();
-  }
+    public DuplicateException() {
+        super();
+    }
 
-  public DuplicateException(String message) {
-    super(message);
-  }
+    public DuplicateException(String message) {
+        super(message);
+    }
 
-  public DuplicateException(String message, Throwable throwable) {
-    super(message, throwable);
-  }
+    public DuplicateException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 }

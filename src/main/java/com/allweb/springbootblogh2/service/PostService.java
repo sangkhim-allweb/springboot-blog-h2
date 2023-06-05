@@ -2,27 +2,21 @@ package com.allweb.springbootblogh2.service;
 
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
-import com.allweb.springbootblogh2.model.Post;
-import com.allweb.springbootblogh2.model.Tag;
+import com.allweb.springbootblogh2.model.entity.Post;
+import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.repository.PostRepository;
 import com.allweb.springbootblogh2.repository.TagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostService {
 
-  @Autowired
-  PostRepository postRepository;
+  private final PostRepository postRepository;
 
-  @Autowired
-  TagRepository tagRepository;
+  private final TagRepository tagRepository;
 
   public List<Post> getAllPosts(String title) {
     List<Post> postList;
@@ -39,7 +33,8 @@ public class PostService {
     if (post.isPresent()) {
       return post.get();
     } else {
-      throw new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(id)));
+      throw new DataNotFoundException(
+          MessageFormat.format("Post id {0} not found", String.valueOf(id)));
     }
   }
 
@@ -63,7 +58,8 @@ public class PostService {
 
   public List<Tag> getAllTagsByPostId(Long id) {
     if (!postRepository.existsById(id)) {
-      throw new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(id)));
+      throw new DataNotFoundException(
+          MessageFormat.format("Post id {0} not found", String.valueOf(id)));
     }
 
     List<Tag> tagList = postRepository.findById(id).get().getTagList();
@@ -71,24 +67,32 @@ public class PostService {
   }
 
   public Tag addTag(Long postId, Tag tagRequest) {
-    Tag existingPost = postRepository.findById(postId).map(post -> {
-
-      Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
-      if (tagRequest.getId() != 0) {
-        if (existingTag.isPresent()) {
-          post.addTag(existingTag.get());
-          postRepository.save(post);
-          return existingTag.get();
-        } else {
-          throw new DataNotFoundException(MessageFormat.format("Tag id {0} not found", String.valueOf(tagRequest.getId())));
-        }
-      } else {
-        // create new tag
-        post.addTag(tagRequest);
-        return tagRepository.save(tagRequest);
-      }
-
-    }).orElseThrow(() -> new DataNotFoundException(MessageFormat.format("Post id {0} not found", String.valueOf(postId))));
+    Tag existingPost =
+        postRepository
+            .findById(postId)
+            .map(
+                post -> {
+                  Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
+                  if (tagRequest.getId() != 0) {
+                    if (existingTag.isPresent()) {
+                      post.addTag(existingTag.get());
+                      postRepository.save(post);
+                      return existingTag.get();
+                    } else {
+                      throw new DataNotFoundException(
+                          MessageFormat.format(
+                              "Tag id {0} not found", String.valueOf(tagRequest.getId())));
+                    }
+                  } else {
+                    // create new tag
+                    post.addTag(tagRequest);
+                    return tagRepository.save(tagRequest);
+                  }
+                })
+            .orElseThrow(
+                () ->
+                    new DataNotFoundException(
+                        MessageFormat.format("Post id {0} not found", String.valueOf(postId))));
 
     return existingPost;
   }
@@ -111,5 +115,4 @@ public class PostService {
       throw new BadRequestException("Delete error, please check ID and try again");
     }
   }
-
 }

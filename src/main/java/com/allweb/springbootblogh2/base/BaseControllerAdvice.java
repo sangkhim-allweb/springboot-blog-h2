@@ -1,6 +1,6 @@
 package com.allweb.springbootblogh2.base;
 
-import com.allweb.springbootblogh2.dto.ErrorResponse;
+import com.allweb.springbootblogh2.exception.base.dto.ErrorResponse;
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.exception.DuplicateException;

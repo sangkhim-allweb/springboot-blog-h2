@@ -1,4 +1,4 @@
-package com.allweb.springbootblogh2.dto;
+package com.allweb.springbootblogh2.exception.base.dto;
 
 import lombok.*;
 

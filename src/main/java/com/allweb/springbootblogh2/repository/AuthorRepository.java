@@ -1,6 +1,6 @@
 package com.allweb.springbootblogh2.repository;
 
-import com.allweb.springbootblogh2.model.Author;
+import com.allweb.springbootblogh2.model.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

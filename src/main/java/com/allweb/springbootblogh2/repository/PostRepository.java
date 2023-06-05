@@ -1,6 +1,6 @@
 package com.allweb.springbootblogh2.repository;
 
-import com.allweb.springbootblogh2.model.Post;
+import com.allweb.springbootblogh2.model.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-  List<Post> findByTitleContaining(String title);
+    List<Post> findByTitleContaining(String title);
 
 }

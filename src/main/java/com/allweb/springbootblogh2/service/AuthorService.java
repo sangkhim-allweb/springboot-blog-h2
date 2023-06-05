@@ -2,22 +2,17 @@ package com.allweb.springbootblogh2.service;
 
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
-import com.allweb.springbootblogh2.model.Author;
+import com.allweb.springbootblogh2.model.entity.Author;
 import com.allweb.springbootblogh2.repository.AuthorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequestMapping("/authors")
+@RequiredArgsConstructor
 public class AuthorService {
 
-  @Autowired
-  AuthorRepository authorRepository;
+  private final AuthorRepository authorRepository;
 
   public List<Author> getAllAuthors() {
     List<Author> authorList = authorRepository.findAll();
@@ -29,7 +24,8 @@ public class AuthorService {
     if (author.isPresent()) {
       return author.get();
     } else {
-      throw new DataNotFoundException(MessageFormat.format("Author id {0} not found", String.valueOf(id)));
+      throw new DataNotFoundException(
+          MessageFormat.format("Author id {0} not found", String.valueOf(id)));
     }
   }
 
@@ -55,5 +51,4 @@ public class AuthorService {
       throw new BadRequestException("Delete error, please check ID and try again");
     }
   }
-
 }

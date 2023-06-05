@@ -11,9 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @CrossOrigin
 public class HomeController {
 
-  @GetMapping
-  public ModelAndView redirect() {
-    return new ModelAndView("redirect:swagger-ui.html");
-  }
+    @GetMapping
+    public ModelAndView redirect() {
+        return new ModelAndView("redirect:swagger-ui.html");
+    }
 
 }

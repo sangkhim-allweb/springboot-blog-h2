@@ -7,16 +7,16 @@ import com.allweb.springbootblogh2.exception.base.ServiceException;
  */
 public class BadRequestException extends ServiceException {
 
-  public BadRequestException() {
-    super();
-  }
+    public BadRequestException() {
+        super();
+    }
 
-  public BadRequestException(String message) {
-    super(message);
-  }
+    public BadRequestException(String message) {
+        super(message);
+    }
 
-  public BadRequestException(String message, Throwable throwable) {
-    super(message, throwable);
-  }
+    public BadRequestException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 }
