@@ -2,7 +2,7 @@ package com.allweb.springbootblogh2.controller;
 
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/tags")
 @CrossOrigin
+@RequiredArgsConstructor
 public class TagController {
 
-    @Autowired
-    TagService service;
+    private final TagService service;
 
     @GetMapping("/v1/tags")
     public ResponseEntity<List<Tag>> getAllTags() {

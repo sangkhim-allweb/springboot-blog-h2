@@ -2,7 +2,7 @@ package com.allweb.springbootblogh2.controller;
 
 import com.allweb.springbootblogh2.model.entity.Author;
 import com.allweb.springbootblogh2.service.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 public class AuthorController {
 
-    @Autowired
-    AuthorService service;
+    private final AuthorService service;
 
     @GetMapping("/v1/authors")
     public ResponseEntity<List<Author>> getAllAuthors() {

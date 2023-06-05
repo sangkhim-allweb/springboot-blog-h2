@@ -3,7 +3,7 @@ package com.allweb.springbootblogh2.controller;
 import com.allweb.springbootblogh2.model.entity.Post;
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/blogs")
 @CrossOrigin
+@RequiredArgsConstructor
 public class PostController {
 
-    @Autowired
-    PostService service;
+    private final PostService service;
 
     @GetMapping("/v1/blogs")
     public ResponseEntity<List<Post>> getAllPosts(@RequestParam(required = false) String title) {
