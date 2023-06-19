@@ -1,9 +1,9 @@
 package com.allweb.springbootblogh2.exception.base;
 
-import com.allweb.springbootblogh2.exception.dto.ErrorResponse;
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.exception.DuplicateException;
+import com.allweb.springbootblogh2.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -26,49 +26,49 @@ import java.util.Map;
 @RestControllerAdvice
 public class BaseControllerAdvice {
 
-  public static final Instant TIMESTAMP = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
+    public static final Instant TIMESTAMP = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
 
-  @ExceptionHandler({NoHandlerFoundException.class})
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ErrorResponse noHandlerFoundException(NoHandlerFoundException ex) {
-    LOGGER.debug(ex.getMessage(), ex.getCause());
-    return new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), "No resource found for your request. Please verify you request", TIMESTAMP);
-  }
+    @ExceptionHandler({NoHandlerFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse noHandlerFoundException(NoHandlerFoundException ex) {
+        LOGGER.debug(ex.getMessage(), ex.getCause());
+        return new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), "No resource found for your request. Please verify you request", TIMESTAMP);
+    }
 
-  @ExceptionHandler({DataNotFoundException.class})
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ErrorResponse noHandlerFoundException(Exception ex) {
-    LOGGER.debug(ex.getMessage(), ex.getCause());
-    return new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), ex.getMessage(), TIMESTAMP);
+    @ExceptionHandler({DataNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse noHandlerFoundException(Exception ex) {
+        LOGGER.debug(ex.getMessage(), ex.getCause());
+        return new ErrorResponse(String.valueOf(HttpStatus.NOT_FOUND.value()), ex.getMessage(), TIMESTAMP);
 
-  }
+    }
 
-  @ExceptionHandler({BadRequestException.class, DuplicateException.class})
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ErrorResponse handleBadRequestException(Exception ex) {
-    return new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
-  }
+    @ExceptionHandler({BadRequestException.class, DuplicateException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequestException(Exception ex) {
+        return new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
+    }
 
-  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-  @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-  public ErrorResponse notSupportedException(HttpRequestMethodNotSupportedException ex) {
-    LOGGER.debug(ex.getMessage(), ex.getCause());
-    return new ErrorResponse(String.valueOf(HttpStatus.METHOD_NOT_ALLOWED.value()), "Method Not Allowed. Please verify you request", TIMESTAMP);
-  }
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ErrorResponse notSupportedException(HttpRequestMethodNotSupportedException ex) {
+        LOGGER.debug(ex.getMessage(), ex.getCause());
+        return new ErrorResponse(String.valueOf(HttpStatus.METHOD_NOT_ALLOWED.value()), "Method Not Allowed. Please verify you request", TIMESTAMP);
+    }
 
-  @ExceptionHandler({Exception.class, ServiceException.class})
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public ErrorResponse handleAllExceptions(Exception ex) {
-    LOGGER.error(ex.getMessage(), ex.getLocalizedMessage());
-    return new ErrorResponse(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), ex.getMessage(), TIMESTAMP);
-  }
+    @ExceptionHandler({Exception.class, ServiceException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleAllExceptions(Exception ex) {
+        LOGGER.error(ex.getMessage(), ex.getLocalizedMessage());
+        return new ErrorResponse(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), ex.getMessage(), TIMESTAMP);
+    }
 
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ErrorResponse handleValidationExceptionHandler(MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-    return new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), errors.toString(), TIMESTAMP);
-  }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ErrorResponse handleValidationExceptionHandler(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        return new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), errors.toString(), TIMESTAMP);
+    }
 
 }

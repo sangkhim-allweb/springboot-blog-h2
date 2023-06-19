@@ -18,18 +18,18 @@ import java.time.Instant;
 @Builder
 public class ErrorResponse {
 
-  /**
-   * error code
-   */
-  private String code;
-  /**
-   * short error message
-   */
-  private String message;
+    /**
+     * error code
+     */
+    private String code;
+    /**
+     * short error message
+     */
+    private String message;
 
-  /**
-   * error cause timestamp
-   */
-  private Instant timestamp;
+    /**
+     * error cause timestamp
+     */
+    private Instant timestamp;
 
 }
