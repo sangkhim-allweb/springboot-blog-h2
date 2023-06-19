@@ -3,13 +3,12 @@ package com.allweb.springbootblogh2.controller;
 import com.allweb.springbootblogh2.model.entity.Post;
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.service.PostService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/blogs")

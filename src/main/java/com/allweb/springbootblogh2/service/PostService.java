@@ -6,12 +6,11 @@ import com.allweb.springbootblogh2.model.entity.Post;
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.repository.PostRepository;
 import com.allweb.springbootblogh2.repository.TagRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
