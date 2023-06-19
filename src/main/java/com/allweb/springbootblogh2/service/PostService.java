@@ -6,7 +6,9 @@ import com.allweb.springbootblogh2.model.entity.Post;
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.repository.PostRepository;
 import com.allweb.springbootblogh2.repository.TagRepository;
+import com.allweb.springbootblogh2.utils.PageUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -22,6 +24,9 @@ public class PostService {
     private final TagRepository tagRepository;
 
     public List<Post> getAllPosts(String title) {
+
+        Page<Post> postListWithPagination = postRepository.findAllPostsWithPagination(PageUtils.pageable(1, 10, "title", "ASC"));
+
         List<Post> postList;
         if (title == null) {
             postList = postRepository.findAll();
