@@ -21,8 +21,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> selectPosts(@Param("title") String title);
 
     @Query(
-            value = "SELECT * FROM Users ORDER BY id",
-            countQuery = "SELECT count(*) FROM Users",
+            value = "SELECT * FROM posts ORDER BY id",
+            countQuery = "SELECT count(*) FROM posts",
             nativeQuery = true)
     Page<Post> findAllPostsWithPagination(Pageable pageable);
 
