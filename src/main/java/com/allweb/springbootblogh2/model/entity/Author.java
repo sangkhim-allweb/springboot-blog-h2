@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "authors")
 @Data
@@ -18,5 +20,8 @@ public class Author {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "author")
+    List<Post> postList;
 
 }

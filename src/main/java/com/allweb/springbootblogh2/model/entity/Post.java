@@ -1,5 +1,6 @@
 package com.allweb.springbootblogh2.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @JsonIgnoreProperties("postList")
     private Author author;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
