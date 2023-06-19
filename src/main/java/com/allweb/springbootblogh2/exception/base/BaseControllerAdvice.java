@@ -1,10 +1,9 @@
-package com.allweb.springbootblogh2.base;
+package com.allweb.springbootblogh2.exception.base;
 
-import com.allweb.springbootblogh2.exception.base.dto.ErrorResponse;
+import com.allweb.springbootblogh2.exception.dto.ErrorResponse;
 import com.allweb.springbootblogh2.exception.BadRequestException;
 import com.allweb.springbootblogh2.exception.DataNotFoundException;
 import com.allweb.springbootblogh2.exception.DuplicateException;
-import com.allweb.springbootblogh2.exception.base.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

@@ -15,43 +15,43 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TagService {
 
-    private final TagRepository tagRepository;
+  private final TagRepository tagRepository;
 
-    public List<Tag> getAllTags() {
-        List<Tag> tagList = tagRepository.findAll();
-        return tagList;
+  public List<Tag> getAllTags() {
+    List<Tag> tagList = tagRepository.findAll();
+    return tagList;
+  }
+
+  public Tag getById(Long id) {
+    Optional<Tag> tag = tagRepository.findById(id);
+    if (tag.isPresent()) {
+      return tag.get();
+    } else {
+      throw new DataNotFoundException(
+          MessageFormat.format("Tag id {0} not found", String.valueOf(id)));
     }
+  }
 
-    public Tag getById(Long id) {
-        Optional<Tag> tag = tagRepository.findById(id);
-        if (tag.isPresent()) {
-            return tag.get();
-        } else {
-            throw new DataNotFoundException(
-                    MessageFormat.format("Tag id {0} not found", String.valueOf(id)));
-        }
+  public Tag createOrUpdate(Tag tagRequest) {
+    Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
+
+    if (existingTag.isPresent()) {
+      Tag tagUpdate = existingTag.get();
+
+      tagUpdate.setName(tagRequest.getName());
+
+      return tagRepository.save(tagUpdate);
+    } else {
+      return tagRepository.save(tagRequest);
     }
+  }
 
-    public Tag createOrUpdate(Tag tagRequest) {
-        Optional<Tag> existingTag = tagRepository.findById(tagRequest.getId());
-
-        if (existingTag.isPresent()) {
-            Tag tagUpdate = existingTag.get();
-
-            tagUpdate.setName(tagRequest.getName());
-
-            return tagRepository.save(tagUpdate);
-        } else {
-            return tagRepository.save(tagRequest);
-        }
+  public void deleteById(Long id) {
+    Optional<Tag> tag = tagRepository.findById(id);
+    if (tag.isPresent()) {
+      tagRepository.deleteById(id);
+    } else {
+      throw new BadRequestException("Delete error, please check ID and try again");
     }
-
-    public void deleteById(Long id) {
-        Optional<Tag> tag = tagRepository.findById(id);
-        if (tag.isPresent()) {
-            tagRepository.deleteById(id);
-        } else {
-            throw new BadRequestException("Delete error, please check ID and try again");
-        }
-    }
+  }
 }
