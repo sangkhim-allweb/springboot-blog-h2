@@ -3,6 +3,7 @@ package com.allweb.springbootblogh2.controller;
 import com.allweb.springbootblogh2.model.entity.Post;
 import com.allweb.springbootblogh2.model.entity.Tag;
 import com.allweb.springbootblogh2.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class PostController {
     }
 
     @PostMapping("/v1/blogs")
-    public ResponseEntity<Post> createOrUpdate(@RequestBody Post post) {
+    public ResponseEntity<Post> createOrUpdate(@Valid @RequestBody Post post) {
         Post updated = service.createOrUpdate(post);
         return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.OK);
     }

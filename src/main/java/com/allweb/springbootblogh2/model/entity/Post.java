@@ -3,6 +3,7 @@ package com.allweb.springbootblogh2.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ public class Post {
     private long id;
 
     @Column(name = "title", nullable = false)
+    @NotBlank(message = "Title is mandatory")
     private String title;
 
     @Column(name = "body")
+    @NotBlank(message = "Body is mandatory")
     private String body;
 
     @ManyToOne
